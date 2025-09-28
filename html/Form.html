@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Application Form</title>
+  <style>
+    body{
+      font-family: "Times New Roman", Georgia, serif;
+      font-size: 16px;
+      color: #111;
+      margin: 24px;
+    }
+    .container{
+      max-width: 1100px;
+    }
+    h1{
+      font-size: 42px;
+      margin: 0 0 14px 0;
+      letter-spacing: 1px;
+    }
+    p.intro{
+      margin: 6px 0 30px 0;
+      color: #222;
+    }
+    form{
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      grid-row-gap: 14px;
+      grid-column-gap: 18px;
+      align-items: start;
+    }
+    label{
+      align-self: center;
+      padding-top: 6px;
+      margin: 0;
+    }
+    .required::before{
+      content: "* ";
+      color: #000;
+      font-weight: 700;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    select,
+    textarea{
+      width: 320px;
+      max-width: 100%;
+      padding: 6px 8px;
+      border: 1px solid #999;
+      box-sizing: border-box;
+      font-size: 15px;
+      border-radius: 2px;
+      background: #fff;
+    }
+    input[type="radio"],
+    input[type="checkbox"]{
+      transform: translateY(0);
+      margin: 0;
+    }
+    .inline-row{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .checkbox-list{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      margin-top:2px;
+      padding-top:8px;
+      width:32px;
+      max-width:100%;
+    }
+    .checkbox-list label{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding-top:0;
+      margin:0;
+    }
+    .full-row{
+      grid-column: 1 / -1;
+      margin-top: 12px;
+    }
+    .file-input{
+      padding-top:6px;
+    }
+    textarea{
+      height:72px;
+      resize:vertical;
+    }
+    .submit-wrap{
+      grid-column: 1 / -1;
+      text-align: left;
+      margin-top: 10px;
+    }
+    button{
+      padding:8px 12px;
+      border:1px solid #777;
+      background:#eee;
+      cursor:pointer;
+      border-radius: 3px;
+      font-size: 14px;
+    }
+    .align-top{ align-self: start; padding-top: 6px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>APPLICATION FORM</h1>
+    <p class="intro">
+      Thank you for your interest in working with us. Please check below for available job opportunities that meet your criteria and send your application by filling out the Job Application Form.
+    </p>
+    <form id="applicationForm" action="#" method="post" enctype="multipart/form-data" novalidate>
+      <label for="fullname" class="required">Full Name:</label>
+      <input id="fullname" name="fullname" type="text" placeholder="Enter your full name" required>
+
+      <label for="email" class="required">Email:</label>
+      <input id="email" name="email" type="email" placeholder="Enter your Email" required>
+
+      <label for="age" class="required">Age:</label>
+      <input id="age" name="age" type="number" min="0" placeholder="Age" required>
+
+      <label for="role" class="align-top">Which option best describes your current role?</label>
+      <select id="role" name="role">
+        <option value="student">Student</option>
+        <option value="graduate">Recent Graduate</option>
+        <option value="experienced">Experienced Professional</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label class="required">Would you like to list references?</label>
+      <div class="inline-row">
+        <label><input type="radio" name="references" value="yes" required> Yes</label>
+        <label><input type="radio" name="references" value="no" required> No</label>
+      </div>
+
+      <label for="position">Which position would you like to apply for?</label>
+      <select id="position" name="position">
+        <option value="">Select an option</option>
+        <option>Software Engineer</option>
+        <option>Front-end Developer</option>
+        <option>Back-end Developer</option>
+        <option>Intern</option>
+      </select>
+
+      <label class="align-top">Which programming languages do you know?</label>
+      <div class="checkbox-list" role="group" aria-labelledby="languages">
+        <label><input type="checkbox" name="lang" value="java"> Java</label>
+        <label><input type="checkbox" name="lang" value="python"> Python</label>
+        <label><input type="checkbox" name="lang" value="javascript"> JavaScript</label>
+        <label><input type="checkbox" name="lang" value="cpp"> C++</label>
+        <label><input type="checkbox" name="lang" value="swift"> Swift</label>
+        <label><input type="checkbox" name="lang" value="ruby"> Ruby</label>
+        <label><input type="checkbox" name="lang" value=".net"> .NET</label>
+      </div>
+
+      <label for="resume">Upload Resume (optional):</label>
+      <div class="file-input">
+        <input id="resume" name="resume" type="file" accept=".pdf,.doc,.docx">
+      </div>
+
+      <label for="comments">Any Comments?</label>
+      <textarea id="comments" name="comments" placeholder="Enter your comment here..."></textarea>
+
+      <div class="submit-wrap">
+        <button type="submit">Submit Application</button>
+      </div>
+    </form>
+  </div>
+  <script>
+    document.getElementById('applicationForm').addEventListener('submit', function(e){
+      const langs = Array.from(document.querySelectorAll('input[name="lang"]')).some(i => i.checked);
+      const comments = document.getElementById('comments').value.trim();
+      if(!langs && !comments){
+        e.preventDefault();
+        alert('Please select at least one programming language or enter a comment.');
+      }
+    });
+  </script>
+</body>
+</html>
